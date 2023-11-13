@@ -17,7 +17,7 @@ def read_txt(filename):
 
 def btn_click():
     option.print_phone_book(read_txt("phonebook.csv"))
-    
+
     # login = loginInput.get()
     # password = passField.get()
     # info_str = f'Данные: {str(login)}, {str(password)}'
@@ -51,26 +51,32 @@ root.geometry('500x500')
 canvas = Canvas(root,height=10,width = 10)
 canvas.pack()
 
-frame = Frame(root, bg = '#ffe4b5')
-frame.place(relx=0.30, rely=0.01, relwidth=0.5, relheight=0.2)
+frame_baground = Frame(root, bg = 'green')
+frame_baground.place(relx=0.11, rely=0.02, relwidth=0.8, relheight=0.2)
 
-frame1 = Frame(root, bg = '#ffe4b5')
-frame1.place(relx=0.30, rely=0.21, relwidth=0.5, relheight=0.1)
+frame = Frame(root, bg = 'green')
+frame.place(relx=0.11, rely=0.11, relwidth=0.8, relheight=0.1)
+
+frame1 = Frame(root, bg = 'green')
+frame1.place(relx=0.11, rely=0.21, relwidth=0.8, relheight=0.1)
 
 frame2 = Frame(root, bg = 'green')
-frame2.place(relx=0.30, rely=0.31, relwidth=0.5, relheight=0.1)
+frame2.place(relx=0.11, rely=0.31, relwidth=0.8, relheight=0.1)
 
 frame3 = Frame(root, bg = 'green')
-frame3.place(relx=0.30, rely=0.41, relwidth=0.5, relheight=0.1)
+frame3.place(relx=0.11, rely=0.41, relwidth=0.8, relheight=0.1)
 
 frame4 = Frame(root, bg = 'green')
-frame4.place(relx=0.30, rely=0.51, relwidth=0.5, relheight=0.1)
+frame4.place(relx=0.11, rely=0.51, relwidth=0.8, relheight=0.1)
 
 frame5 = Frame(root, bg = 'green')
-frame5.place(relx=0.30, rely=0.61, relwidth=0.5, relheight=0.1)
+frame5.place(relx=0.11, rely=0.61, relwidth=0.8, relheight=0.1)
 
 frame6 = Frame(root, bg = 'green')
-frame6.place(relx=0.20, rely=0.71, relwidth=0.5, relheight=0.1)
+frame6.place(relx=0.11, rely=0.71, relwidth=0.8, relheight=0.1)
+
+frame_baground_end = Frame(root, bg = 'green')
+frame_baground_end.place(relx=0.11, rely=0.81, relwidth=0.8, relheight=0.1)
 
 # title = Label(frame, text='Выберите пункт меню', bg='purple', font=60)
 # title.place()

@@ -99,7 +99,6 @@ def add_subscriber_in_phonebook(file_open, filename):
         new_subscriber.append(create[i])
     new_subscriber = dict(zip(fields, new_subscriber))
     file_open.append(new_subscriber)
-    # print(file_open)
     with open(filename, 'w', encoding='utf-8') as ph:
         for record in file_open:
             line = ','.join(record[field] for field in fields)
@@ -121,7 +120,7 @@ def add_subscriber_in_phonebook(file_open, filename):
 def change(file_open, filename):
     fields = ['Фамилия', 'Имя', 'Телефон', 'Описание']
     field_in = fields[option_two.find_contact_to_change() - 1]
-    family_found = option_two.contact_change(file_open, filename, field_in)
+    family_found = option_two.contact_change()
     if field_in == 1 or field_in == 2:
         family_found = Higher_order(family_found)
     found_people = []
@@ -141,7 +140,7 @@ def change(file_open, filename):
     if len(found_people) == 1:
         choice = 0
     your_change = fields[option_two.choice_contact_to_change() - 1]
-    new_record = option_two.contact_change_end(file_open, filename, your_change)
+    new_record = option_two.contact_change_end()
     if your_change == 1 or your_change == 2:
         new_record = Higher_order(new_record)
     for record in file_open:
@@ -159,45 +158,43 @@ def change(file_open, filename):
 # 6. Удалить запись
 def delete_record(file_open, filename):
     fields = ['Фамилия', 'Имя', 'Телефон', 'Описание']
-    confirm_w = False
-    while (confirm_w == False):
-        family = input("Введите фамилию абонента, запись о котором вы хотите удалить: ")
-        found_phone_record = []
-        found_fio_record = []
-        found_info_record = []
-        for record in file_open:
-            if record.get("Фамилия") == family:
-                found_phone_record.append(record.get("Телефон"))
-                found_fio_record.append(record.get("Фамилия"))
-                found_fio_record.append(record.get("Имя"))
-                found_info_record.append(record.get("Описание"))
-        fio = " ".join(found_fio_record)
-        info = "".join(found_info_record)
-        if found_phone_record:
-            for record in found_phone_record:
-                print(f"Абонент - {fio}. Телефон - {record}. Описание - {info}")
-                confirm = input("Все верно?\n1 - да   2 - нет\n")
-                if confirm == "1":
-                    confirm_w = True
-                    record_delete = 0
-                    for i in range(len(file_open)):
-                        if file_open[i].get("Фамилия") == family:
-                            record_delete = i
-                    del file_open[record_delete]
-                    with open(filename, 'w', encoding='utf-8') as ph:
-                        for record in file_open:
-                            line = ','.join(record[field] for field in fields)
-                            ph.write(line + "\n")
-                else:
-                    next_input = input("Хотите ввести другое значение?\n1 - да   2 - нет\n")
-                    if next_input == '2':
-                        confirm_w = True
+    family = option_two.find_contact_delete()
+    found_phone_record = []
+    found_fio_record = []
+    found_info_record = []
+    for record in file_open:
+        if record.get("Фамилия") == family:
+            found_phone_record.append(record.get("Телефон"))
+            found_fio_record.append(record.get("Фамилия"))
+            found_fio_record.append(record.get("Имя"))
+            found_info_record.append(record.get("Описание"))
+    fio = " ".join(found_fio_record)
+    info = "".join(found_info_record)
+    if found_phone_record:
+        if option_two.confirm(fio, info, found_phone_record, file_open) == True:
+            record_delete = 0
+            for i in range(len(file_open)):
+                if file_open[i].get("Фамилия") == family:
+                    record_delete = i
+            del file_open[record_delete]
+            with open(filename, 'w', encoding='utf-8') as ph:
+                for record in file_open:
+                    line = ','.join(record[field] for field in fields)
+                    ph.write(line + "\n")
+            option_two.succes()
         else:
-            print("Абонент не найден")
-            next = int(input("Продолжить?\n1. Да    2. Нет\n"))
-            if next == 2:
+            if option_two.another_try() == True:
+                delete_record(file_open, filename)
+            else:
                 return 0
+    else:
+        if option_two.not_found() == True:
+            delete_record(file_open, filename)
+        else:
+            return 0
+
                 
+
 # Функция верхнего регистра первой буквы
 def Higher_order(input_user):
     input_user = input_user.lower()

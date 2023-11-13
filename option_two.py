@@ -164,7 +164,7 @@ def find_contact_to_change():
         return result_var.get()
 
 
-def contact_change(file_open, filename, field_in):
+def contact_change():
         def your_input():
             result_var.set(your_choice.get())
             win.destroy()
@@ -220,6 +220,7 @@ def not_found():
             result_var.set(True)
             window.destroy()
         def no_function(window):
+            result_var.set(False)
             window.destroy()
         win = Tk()
         win['bg'] = '#ffe4b5'
@@ -278,7 +279,7 @@ def choice_contact_to_change():
         btn.pack()
         frame3 = Frame(win, bg='#ffe4b5')
         frame3.place(relx=0.35, rely=0.48, relwidth=0.3, relheight=0.2)
-        btn = Button(frame3, text="Номеру телефона", command=lambda: input_phone())
+        btn = Button(frame3, text="Номер телефона", command=lambda: input_phone())
         btn.pack()
         frame4 = Frame(win, bg='#ffe4b5')
         frame4.place(relx=0.35, rely=0.58, relwidth=0.3, relheight=0.2)
@@ -288,7 +289,7 @@ def choice_contact_to_change():
         return result_var.get()
 
 
-def contact_change_end(file_open, filename, field_in):
+def contact_change_end():
         def your_input():
             result_var.set(your_choice.get())
             win.destroy()
@@ -317,6 +318,7 @@ def saved_change():
             result_var.set(True)
             window.destroy()
         def no_function(window):
+            result_var.set(False)
             window.destroy()
         win = Tk()
         win['bg'] = '#ffe4b5'
@@ -327,6 +329,107 @@ def saved_change():
         canvas.pack()
         result_var = BooleanVar()
         title = Label(win, text='Хотите поменять что-либо еще?', bg='#ffe4b5', font=60)
+        title.pack()
+        frame = Frame(win, bg='white')
+        frame.place(relx=0.45, rely=0.40, relwidth=0.1, relheight=0.1)
+        btn = Button(frame, text="Да", command=lambda: yes_function(win))
+        btn.pack()
+        btn = Button(frame, text="Нет", command=lambda: no_function(win))
+        btn.pack()
+        win.wait_window(win)
+        return result_var.get()
+
+
+
+# 6. Удалить запись
+def find_contact_delete():
+        def your_input():
+            result_var.set(your_choice.get())
+            win.destroy()
+        win = Tk()
+        win['bg'] = '#ffe4b5'
+        win.title('Удаление контакта')
+        win.wm_attributes('-alpha', 1.0)
+        win.geometry('500x500')
+        canvas = Canvas(win, height=20, width=10)
+        canvas.pack()
+        result_var = StringVar()
+        title = Label(win, text='Введите фамилию абонента, запись о котором вы хотите удалить', bg='#ffe4b5', font=60)
+        title.pack()
+        your_choice = Entry(win, bg='white')
+        your_choice.pack()
+        frame = Frame(win, bg='#ffe4b5')
+        frame.place(relx=0.35, rely=0.28, relwidth=0.3, relheight=0.2)
+        btn = Button(frame, text="Ввод", command=lambda: your_input())
+        btn.pack()
+        win.wait_window(win)
+        return result_var.get()
+
+
+def confirm(fio, info, found_phone_record, file_open):
+        def yes_function(window):
+            result_var.set(True)
+            window.destroy()
+        def no_function(window):
+            window.destroy()
+        win = Tk()
+        win['bg'] = '#ffe4b5'
+        win.title('Удаление контакта')
+        win.wm_attributes('-alpha', 1.0)
+        win.geometry('500x500')
+        canvas = Canvas(win, height=20, width=10)
+        canvas.pack()
+        result_var = BooleanVar()
+        title = Label(win, text='Все верно?', bg='#ffe4b5', font=60)
+        title.pack()
+        for record in found_phone_record:
+            line = f"Абонент - {fio}. Телефон - {record}. Описание - {info}"
+            title = Label(win, text=line, bg='#ffe4b5', font=60)
+            title.pack()
+        frame = Frame(win, bg='white')
+        frame.place(relx=0.45, rely=0.40, relwidth=0.1, relheight=0.1)
+        btn = Button(frame, text="Да", command=lambda: yes_function(win))
+        btn.pack()
+        btn = Button(frame, text="Нет", command=lambda: no_function(win))
+        btn.pack()
+        win.wait_window(win)
+        return result_var.get()
+
+def succes():
+        def ok_function(window):
+            window.destroy()
+        win = Tk()
+        win['bg'] = '#ffe4b5'
+        win.title('Удаление контакта')
+        win.wm_attributes('-alpha', 1.0)
+        win.geometry('500x500')
+        canvas = Canvas(win, height=20, width=10)
+        canvas.pack()
+        result_var = BooleanVar()
+        title = Label(win, text='Операция выполнена успешно', bg='#ffe4b5', font=60)
+        title.pack()
+        frame = Frame(win, bg='white')
+        frame.place(relx=0.45, rely=0.40, relwidth=0.1, relheight=0.1)
+        btn = Button(frame, text="ОК", command=lambda: ok_function(win))
+        btn.pack()
+        win.wait_window(win)
+        return result_var.get()
+
+def another_try():
+        def yes_function(window):
+            result_var.set(True)
+            window.destroy()
+        def no_function(window):
+            window.destroy()
+        win = Tk()
+        win['bg'] = '#ffe4b5'
+        win.title('Удаление контакта')
+        win.wm_attributes('-alpha', 1.0)
+        win.geometry('500x500')
+        canvas = Canvas(win, height=20, width=10)
+        canvas.pack()
+        result_var = BooleanVar()
+        title = Label(win, text='Хотите ввести другое значение?', bg='#ffe4b5', font=60)
         title.pack()
         frame = Frame(win, bg='white')
         frame.place(relx=0.45, rely=0.40, relwidth=0.1, relheight=0.1)
